@@ -30,6 +30,7 @@ export const Hero: React.FC = () => {
 
   // Interactive Die State
   const [activeTab, setActiveTab] = useState<'photo' | 'wafer' | 'rtl' | 'probe'>('photo');
+  const [heroPhotoFailed, setHeroPhotoFailed] = useState<boolean>(false);
   const [activeLayer, setActiveLayer] = useState<SiliconLayer>('metal4');
   const [clockRunning, setClockRunning] = useState<boolean>(true);
   const [clockCycle, setClockCycle] = useState<number>(1042);
@@ -380,19 +381,41 @@ export const Hero: React.FC = () => {
               {/* TAB 0: Professional Portrait & Credentials HUD */}
               {activeTab === 'photo' && (
                 <div className="py-2.5 space-y-3 font-mono text-xs">
-                  <div className="relative rounded-2xl overflow-hidden border border-cyan-500/30 bg-[#040810] group">
-                    <img
-                      src={data.avatarUrl}
-                      onError={(e) => {
-                        const target = e.currentTarget;
-                        if (target.src.includes('.jpg')) {
-                          target.src = './diwakar_photo.png';
-                        }
-                      }}
-                      alt={data.fullName}
-                      referrerPolicy="no-referrer"
-                      className="w-full h-64 sm:h-72 object-cover object-top filter brightness-95 group-hover:brightness-105 group-hover:scale-105 transition-all duration-500"
-                    />
+                  <div className="relative rounded-2xl overflow-hidden border border-cyan-500/30 bg-[#040810] group min-h-[16rem] flex flex-col justify-end">
+                    {!heroPhotoFailed ? (
+                      <img
+                        src={data.avatarUrl}
+                        onError={() => setHeroPhotoFailed(true)}
+                        alt={data.fullName}
+                        referrerPolicy="no-referrer"
+                        className="w-full h-64 sm:h-72 object-cover object-top filter brightness-95 group-hover:brightness-105 group-hover:scale-105 transition-all duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-64 sm:h-72 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#080e1a] via-[#050b14] to-[#02050a] relative overflow-hidden">
+                        {/* Ambient Grid */}
+                        <div className="absolute inset-0 bg-[radial-gradient(#00f0ff_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none" />
+                        
+                        {/* Cyber Monogram Badge */}
+                        <div className="relative mb-3">
+                          <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-700 p-0.5 shadow-xl shadow-cyan-500/30 flex items-center justify-center">
+                            <div className="w-full h-full bg-[#070d18] rounded-[22px] flex items-center justify-center font-black text-2xl tracking-tight text-white">
+                              <span>DV</span>
+                            </div>
+                          </div>
+                          <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-[#070d18] animate-pulse" />
+                        </div>
+
+                        <div className="text-center z-10 space-y-1">
+                          <div className="text-base font-bold text-white font-sans tracking-tight">{data.fullName}</div>
+                          <div className="text-xs text-cyan-400 font-mono">B.E. ECE &bull; KPRIET</div>
+                          <div className="text-[11px] text-amber-400 font-mono font-bold">9.16 CGPA &bull; Department Topper</div>
+                        </div>
+
+                        <div className="mt-3 text-[10px] text-slate-400 font-mono bg-black/60 px-3 py-1 rounded-full border border-white/10">
+                          Place photo in <span className="text-cyan-300 font-bold">public/diwakar_photo.jpg</span>
+                        </div>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent pointer-events-none" />
 
                     {/* Corner Tech Brackets */}
@@ -407,15 +430,17 @@ export const Hero: React.FC = () => {
                     </div>
 
                     {/* Bottom Overlay Info */}
-                    <div className="absolute bottom-3 left-3 right-3 text-left space-y-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-base font-bold text-white font-sans">{data.fullName}</h4>
-                        <span className="text-[11px] text-cyan-300 font-mono">B.E. ECE @ KPRIET</span>
+                    {!heroPhotoFailed && (
+                      <div className="absolute bottom-3 left-3 right-3 text-left space-y-1">
+                        <div className="flex items-center justify-between">
+                          <h4 className="text-base font-bold text-white font-sans">{data.fullName}</h4>
+                          <span className="text-[11px] text-cyan-300 font-mono">B.E. ECE @ KPRIET</span>
+                        </div>
+                        <p className="text-xs text-slate-300 font-sans line-clamp-1">
+                          Embedded Systems &bull; PCB Design &bull; Antenna RF Fabrication
+                        </p>
                       </div>
-                      <p className="text-xs text-slate-300 font-sans line-clamp-1">
-                        Embedded Systems &bull; PCB Design &bull; Antenna RF Fabrication
-                      </p>
-                    </div>
+                    )}
                   </div>
 
                   {/* Quick specs below photo */}

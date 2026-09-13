@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 import {
   Layers,
@@ -18,6 +18,7 @@ import {
 
 export const AboutSection: React.FC = () => {
   const { data, theme, setIsResumeModalOpen } = usePortfolio();
+  const [aboutPhotoFailed, setAboutPhotoFailed] = useState(false);
 
   const getPhilosophyIcon = (iconName: string) => {
     switch (iconName) {
@@ -183,19 +184,28 @@ export const AboutSection: React.FC = () => {
                   : 'bg-[#0c0c0c] border-white/10 shadow-2xl shadow-cyan-950/20'
               }`}
             >
-              <div className="relative rounded-2xl overflow-hidden mb-4 border border-white/10 aspect-square max-h-72 mx-auto">
-                <img
-                  src={data.avatarUrl}
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (target.src.includes('.jpg')) {
-                      target.src = './diwakar_photo.png';
-                    }
-                  }}
-                  alt={data.fullName}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover object-top filter brightness-95 group-hover:scale-105 transition-transform duration-500"
-                />
+              <div className="relative rounded-2xl overflow-hidden mb-4 border border-white/10 aspect-square max-h-72 mx-auto flex flex-col justify-end">
+                {!aboutPhotoFailed ? (
+                  <img
+                    src={data.avatarUrl}
+                    onError={() => setAboutPhotoFailed(true)}
+                    alt={data.fullName}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-top filter brightness-95 group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full min-h-[16rem] flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#0e1626] via-[#090e18] to-[#040810] relative">
+                    <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-700 p-0.5 shadow-xl shadow-cyan-500/30 flex items-center justify-center mb-3">
+                      <div className="w-full h-full bg-[#070d18] rounded-[22px] flex items-center justify-center font-black text-2xl tracking-tight text-white">
+                        <span>DV</span>
+                      </div>
+                    </div>
+                    <div className="text-center space-y-1">
+                      <div className="text-base font-bold text-white tracking-tight">{data.fullName}</div>
+                      <div className="text-xs text-cyan-300 font-mono">B.E. ECE &bull; KPRIET</div>
+                    </div>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none" />
 
                 {/* Badges on Photo */}
@@ -210,11 +220,13 @@ export const AboutSection: React.FC = () => {
                 </div>
 
                 {/* Bottom Overlay Text */}
-                <div className="absolute bottom-3 left-3 right-3 text-left">
-                  <div className="text-base font-bold text-white tracking-tight">{data.fullName}</div>
-                  <div className="text-xs text-cyan-300 font-mono">Electronics & Communication Engineering</div>
-                  <div className="text-[11px] text-slate-300 font-sans">KPR Institute of Engineering & Technology</div>
-                </div>
+                {!aboutPhotoFailed && (
+                  <div className="absolute bottom-3 left-3 right-3 text-left">
+                    <div className="text-base font-bold text-white tracking-tight">{data.fullName}</div>
+                    <div className="text-xs text-cyan-300 font-mono">Electronics & Communication Engineering</div>
+                    <div className="text-[11px] text-slate-300 font-sans">KPR Institute of Engineering & Technology</div>
+                  </div>
+                )}
               </div>
 
               <div className="flex items-center justify-between text-xs font-mono text-slate-400 pt-1 border-t border-white/5">

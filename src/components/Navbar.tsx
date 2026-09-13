@@ -21,6 +21,7 @@ export const Navbar: React.FC = () => {
   const { data, theme, setTheme, setIsResumeModalOpen, setIsCustomizerOpen } = usePortfolio();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [imgFailed, setImgFailed] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,18 +81,25 @@ export const Navbar: React.FC = () => {
           className="flex items-center gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded-xl p-1"
         >
           <div className="relative">
-            <img
-              src={data.avatarUrl}
-              onError={(e) => {
-                const target = e.currentTarget;
-                if (target.src.includes('.jpg')) {
-                  target.src = './diwakar_photo.png';
-                }
-              }}
-              alt={data.fullName}
-              referrerPolicy="no-referrer"
-              className="w-10 h-10 rounded-2xl object-cover object-top border border-cyan-500/40 shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300"
-            />
+            {!imgFailed ? (
+              <img
+                src={data.avatarUrl}
+                onError={() => setImgFailed(true)}
+                alt={data.fullName}
+                referrerPolicy="no-referrer"
+                className="w-10 h-10 rounded-2xl object-cover object-top border border-cyan-500/40 shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300"
+              />
+            ) : (
+              <div
+                className={`w-10 h-10 rounded-2xl flex items-center justify-center font-black text-base transition-transform duration-300 group-hover:scale-105 ${
+                  theme === 'light'
+                    ? 'bg-cyan-600 text-white shadow-md shadow-cyan-500/20'
+                    : 'bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-700 text-white shadow-2xl shadow-cyan-500/30'
+                }`}
+              >
+                <span>DV</span>
+              </div>
+            )}
             <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-black animate-pulse" />
           </div>
           <div className="flex flex-col">

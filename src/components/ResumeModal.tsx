@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 import {
   X,
@@ -16,6 +16,7 @@ import {
 
 export const ResumeModal: React.FC = () => {
   const { data, isResumeModalOpen, setIsResumeModalOpen, theme } = usePortfolio();
+  const [resumePhotoFailed, setResumePhotoFailed] = useState(false);
 
   if (!isResumeModalOpen) return null;
 
@@ -88,18 +89,15 @@ export const ResumeModal: React.FC = () => {
           {/* Header */}
           <div className="border-b-2 border-slate-900 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <img
-                src={data.avatarUrl}
-                onError={(e) => {
-                  const target = e.currentTarget;
-                  if (target.src.includes('.jpg')) {
-                    target.src = './diwakar_photo.png';
-                  }
-                }}
-                alt={data.fullName}
-                referrerPolicy="no-referrer"
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-top border-2 border-slate-900 shadow-md shrink-0"
-              />
+              {!resumePhotoFailed && (
+                <img
+                  src={data.avatarUrl}
+                  onError={() => setResumePhotoFailed(true)}
+                  alt={data.fullName}
+                  referrerPolicy="no-referrer"
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-top border-2 border-slate-900 shadow-md shrink-0"
+                />
+              )}
               <div>
                 <h1 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">{data.fullName}</h1>
                 <h2 className="text-xs sm:text-sm font-bold text-blue-700 mt-0.5">{data.title}</h2>
