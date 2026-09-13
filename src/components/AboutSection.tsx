@@ -20,6 +20,10 @@ export const AboutSection: React.FC = () => {
   const { data, theme, setIsResumeModalOpen } = usePortfolio();
   const [aboutPhotoFailed, setAboutPhotoFailed] = useState(false);
 
+  React.useEffect(() => {
+    setAboutPhotoFailed(false);
+  }, [data.avatarUrl]);
+
   const getPhilosophyIcon = (iconName: string) => {
     switch (iconName) {
       case 'Layers':

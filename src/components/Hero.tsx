@@ -40,6 +40,10 @@ export const Hero: React.FC = () => {
 
   const cardRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    setHeroPhotoFailed(false);
+  }, [data.avatarUrl]);
+
   // Subtitle typing loop
   useEffect(() => {
     const subtitles = data.subtitles.length > 0 ? data.subtitles : [data.title];

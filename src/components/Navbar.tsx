@@ -24,6 +24,10 @@ export const Navbar: React.FC = () => {
   const [imgFailed, setImgFailed] = useState(false);
 
   useEffect(() => {
+    setImgFailed(false);
+  }, [data.avatarUrl]);
+
+  useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };

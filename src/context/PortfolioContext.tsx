@@ -2,8 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ProfileData, Project, ThemeMode } from '../types';
 import { defaultPortfolioData } from '../data/defaultPortfolio';
 
-const STORAGE_KEY = 'diwakar_portfolio_data_v5';
-const THEME_KEY = 'diwakar_portfolio_theme_v5';
+const STORAGE_KEY = 'diwakar_portfolio_data_v8';
+const THEME_KEY = 'diwakar_portfolio_theme_v8';
 
 interface PortfolioContextType {
   data: ProfileData;
@@ -33,7 +33,11 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (!parsed.avatarUrl || parsed.avatarUrl === './diwakar_photo.jpg') {
+          parsed.avatarUrl = defaultPortfolioData.avatarUrl;
+        }
+        return parsed;
       }
     } catch {
       // Fallback

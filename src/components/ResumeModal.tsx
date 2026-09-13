@@ -18,6 +18,10 @@ export const ResumeModal: React.FC = () => {
   const { data, isResumeModalOpen, setIsResumeModalOpen, theme } = usePortfolio();
   const [resumePhotoFailed, setResumePhotoFailed] = useState(false);
 
+  React.useEffect(() => {
+    setResumePhotoFailed(false);
+  }, [data.avatarUrl]);
+
   if (!isResumeModalOpen) return null;
 
   const handlePrint = () => {

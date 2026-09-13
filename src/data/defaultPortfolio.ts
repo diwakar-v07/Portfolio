@@ -1,4 +1,5 @@
 import { ProfileData } from '../types';
+import diwakarPhoto from '../assets/images/diwakar_photo.jpg';
 
 export const defaultPortfolioData: ProfileData = {
   fullName: 'Diwakar V',
@@ -25,7 +26,7 @@ export const defaultPortfolioData: ProfileData = {
   githubUrl: 'https://github.com/diwakar-v07',
   availability: 'Open to Offers',
   yearsExperience: 2,
-  avatarUrl: './diwakar_photo.jpg',
+  avatarUrl: diwakarPhoto || './diwakar_photo.jpg',
   heroMetrics: [
     { label: 'Department Rank', value: '9.16 CGPA', subtext: 'Department CGPA Topper' },
     { label: 'Core Specialization', value: 'Embedded & IoT', subtext: 'ESP32 & Arduino UNO' },
