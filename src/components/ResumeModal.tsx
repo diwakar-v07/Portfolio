@@ -86,10 +86,27 @@ export const ResumeModal: React.FC = () => {
         {/* Printable Resume Sheet */}
         <div className="space-y-6 text-slate-800 font-sans text-sm leading-relaxed">
           {/* Header */}
-          <div className="border-b-2 border-slate-900 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-            <div>
-              <h1 className="text-3xl font-black text-slate-950 tracking-tight">{data.fullName}</h1>
-              <h2 className="text-base font-bold text-blue-700 mt-0.5">{data.title}</h2>
+          <div className="border-b-2 border-slate-900 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <img
+                src={data.avatarUrl}
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src.includes('.jpg')) {
+                    target.src = './diwakar_photo.png';
+                  }
+                }}
+                alt={data.fullName}
+                referrerPolicy="no-referrer"
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-top border-2 border-slate-900 shadow-md shrink-0"
+              />
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">{data.fullName}</h1>
+                <h2 className="text-xs sm:text-sm font-bold text-blue-700 mt-0.5">{data.title}</h2>
+                <div className="mt-1 inline-block text-[11px] font-mono font-bold text-amber-700 bg-amber-100/80 px-2 py-0.5 rounded border border-amber-300">
+                  9.16 CGPA &bull; Department Topper (ECE)
+                </div>
+              </div>
             </div>
 
             <div className="text-xs space-y-1 font-mono text-slate-600 sm:text-right">

@@ -29,7 +29,7 @@ export const Hero: React.FC = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   // Interactive Die State
-  const [activeTab, setActiveTab] = useState<'wafer' | 'rtl' | 'probe'>('wafer');
+  const [activeTab, setActiveTab] = useState<'photo' | 'wafer' | 'rtl' | 'probe'>('photo');
   const [activeLayer, setActiveLayer] = useState<SiliconLayer>('metal4');
   const [clockRunning, setClockRunning] = useState<boolean>(true);
   const [clockCycle, setClockCycle] = useState<number>(1042);
@@ -325,6 +325,19 @@ export const Hero: React.FC = () => {
                   <button
                     onClick={() => {
                       soundFx.playChipBlip(1200, 0.02);
+                      setActiveTab('photo');
+                    }}
+                    className={`px-2.5 py-1 rounded-lg transition-all font-bold ${
+                      activeTab === 'photo'
+                        ? 'bg-cyan-500 text-black shadow-sm'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    PORTRAIT
+                  </button>
+                  <button
+                    onClick={() => {
+                      soundFx.playChipBlip(1200, 0.02);
                       setActiveTab('wafer');
                     }}
                     className={`px-2.5 py-1 rounded-lg transition-all font-bold ${
@@ -363,6 +376,65 @@ export const Hero: React.FC = () => {
                   </button>
                 </div>
               </div>
+
+              {/* TAB 0: Professional Portrait & Credentials HUD */}
+              {activeTab === 'photo' && (
+                <div className="py-2.5 space-y-3 font-mono text-xs">
+                  <div className="relative rounded-2xl overflow-hidden border border-cyan-500/30 bg-[#040810] group">
+                    <img
+                      src={data.avatarUrl}
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (target.src.includes('.jpg')) {
+                          target.src = './diwakar_photo.png';
+                        }
+                      }}
+                      alt={data.fullName}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-64 sm:h-72 object-cover object-top filter brightness-95 group-hover:brightness-105 group-hover:scale-105 transition-all duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent pointer-events-none" />
+
+                    {/* Corner Tech Brackets */}
+                    <div className="absolute top-2.5 left-2.5 text-[10px] font-mono text-amber-300 bg-black/80 px-2.5 py-1 rounded-full border border-amber-400/40 backdrop-blur-md flex items-center gap-1.5 shadow-lg">
+                      <Sparkles className="w-3 h-3 text-amber-400" />
+                      <span className="font-bold">DEPT TOPPER // 9.16 CGPA</span>
+                    </div>
+
+                    <div className="absolute top-2.5 right-2.5 text-[10px] font-mono text-emerald-400 bg-black/80 px-2.5 py-1 rounded-full border border-emerald-500/30 backdrop-blur-md flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                      <span>ONLINE</span>
+                    </div>
+
+                    {/* Bottom Overlay Info */}
+                    <div className="absolute bottom-3 left-3 right-3 text-left space-y-1">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-base font-bold text-white font-sans">{data.fullName}</h4>
+                        <span className="text-[11px] text-cyan-300 font-mono">B.E. ECE @ KPRIET</span>
+                      </div>
+                      <p className="text-xs text-slate-300 font-sans line-clamp-1">
+                        Embedded Systems &bull; PCB Design &bull; Antenna RF Fabrication
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Quick specs below photo */}
+                  <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
+                    <div className="p-2 rounded-xl bg-black/40 border border-white/10">
+                      <div className="text-amber-400 font-bold">9.16 / 10</div>
+                      <div className="text-slate-400 text-[9px]">Dept Rank #1</div>
+                    </div>
+                    <div className="p-2 rounded-xl bg-black/40 border border-white/10">
+                      <div className="text-cyan-400 font-bold">ESP32 &bull; UNO</div>
+                      <div className="text-slate-400 text-[9px]">Embedded Core</div>
+                    </div>
+                    <div className="p-2 rounded-xl bg-black/40 border border-white/10">
+                      <div className="text-emerald-400 font-bold">KiCad &bull; Proteus</div>
+                      <div className="text-slate-400 text-[9px]">PCB & RF Lab</div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* TAB 1: Interactive 3D Silicon Wafer Floorplan */}
               {activeTab === 'wafer' && (

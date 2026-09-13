@@ -25,7 +25,7 @@ export const defaultPortfolioData: ProfileData = {
   githubUrl: 'https://github.com/diwakar-v07',
   availability: 'Open to Offers',
   yearsExperience: 2,
-  avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80',
+  avatarUrl: './diwakar_photo.jpg',
   heroMetrics: [
     { label: 'Department Rank', value: '9.16 CGPA', subtext: 'Department CGPA Topper' },
     { label: 'Core Specialization', value: 'Embedded & IoT', subtext: 'ESP32 & Arduino UNO' },

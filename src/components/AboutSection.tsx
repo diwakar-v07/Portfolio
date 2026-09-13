@@ -175,6 +175,57 @@ export const AboutSection: React.FC = () => {
 
           {/* Core Strengths Checklist & Education snippet */}
           <div className="lg:col-span-5 space-y-4">
+            {/* Professional Portrait Card */}
+            <div
+              className={`p-5 rounded-3xl border overflow-hidden relative group transition-all ${
+                theme === 'light'
+                  ? 'bg-white border-slate-200 shadow-lg shadow-slate-100'
+                  : 'bg-[#0c0c0c] border-white/10 shadow-2xl shadow-cyan-950/20'
+              }`}
+            >
+              <div className="relative rounded-2xl overflow-hidden mb-4 border border-white/10 aspect-square max-h-72 mx-auto">
+                <img
+                  src={data.avatarUrl}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src.includes('.jpg')) {
+                      target.src = './diwakar_photo.png';
+                    }
+                  }}
+                  alt={data.fullName}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover object-top filter brightness-95 group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none" />
+
+                {/* Badges on Photo */}
+                <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-amber-400/40 text-amber-300 text-[11px] font-mono font-bold">
+                  <Award className="w-3.5 h-3.5 text-amber-400" />
+                  <span>9.16 CGPA Topper</span>
+                </div>
+
+                <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-emerald-500/40 text-emerald-300 text-[11px] font-mono">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  <span>Available</span>
+                </div>
+
+                {/* Bottom Overlay Text */}
+                <div className="absolute bottom-3 left-3 right-3 text-left">
+                  <div className="text-base font-bold text-white tracking-tight">{data.fullName}</div>
+                  <div className="text-xs text-cyan-300 font-mono">Electronics & Communication Engineering</div>
+                  <div className="text-[11px] text-slate-300 font-sans">KPR Institute of Engineering & Technology</div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-mono text-slate-400 pt-1 border-t border-white/5">
+                <span className="flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-indigo-400" />
+                  <span>Karur &bull; Coimbatore</span>
+                </span>
+                <span className="text-cyan-400 font-semibold">B.E. ECE 2nd Year</span>
+              </div>
+            </div>
+
             <div
               className={`p-6 sm:p-8 rounded-3xl border ${
                 theme === 'light'
