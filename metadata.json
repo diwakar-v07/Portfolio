@@ -1,0 +1,8 @@
+{
+  "name": "Remix Diwakar V - Portfolio",
+  "description": "Portfolio of Diwakar V — Electronics & Communication Engineering Student (Department CGPA Topper 9.16) specializing in Embedded Systems, ESP32, Arduino, PCB Design, Antenna Fabrication, and Automation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
