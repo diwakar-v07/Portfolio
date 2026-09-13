@@ -4,8 +4,12 @@ import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
+  // Use /Portfolio/ for GitHub Actions deployment, relative ./ for local/dev preview
+  const isGitHubActions = process.env.GITHUB_ACTIONS === 'true';
+  const base = isGitHubActions ? '/Portfolio/' : './';
+
   return {
-    base: './',
+    base,
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
